@@ -27,7 +27,7 @@ const router = express.Router();
 
 app.use(cors({ optionsSuccessStatus: 200 }));
 
-app.use("/", router);
+app.use("/.netlify/dist", router);
 app.use(express.static("styles"));
 app.use("/styles", express.static(`${__dirname}/styles`));
 app.use("/styles", express.static(`${process.cwd()}/styles`));
