@@ -15,7 +15,6 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js localhost 3000",
-    "postinstall": "netlify-lambda install ./",
     "build": "netlify-lambda build ./"
   },
   "dependencies": {
