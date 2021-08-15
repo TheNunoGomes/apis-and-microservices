@@ -1,8 +1,8 @@
 // Packages
 const express = require("express");
 const dns = require("dns");
-const mongodb = require("mongodb");
 const mongoose = require("mongoose");
+const serverless = require("serverless-http");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -27,7 +27,7 @@ const router = express.Router();
 
 app.use(cors({ optionsSuccessStatus: 200 }));
 
-app.use("/.netlify/dist", router);
+app.use("/", router);
 app.use(express.static("styles"));
 app.use("/styles", express.static(`${__dirname}/styles`));
 app.use("/styles", express.static(`${process.cwd()}/styles`));
