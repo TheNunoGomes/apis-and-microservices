@@ -21,29 +21,26 @@ mongoose.connect(process.env.DB_URI, {
 
 const app = express();
 
-const router = express.Router();
-
 app.use(cors({ optionsSuccessStatus: 200 }));
 
-app.use("/", router);
 app.use(express.static("styles"));
 app.use("/styles", express.static(`${__dirname}/styles`));
 app.use("/styles", express.static(`${process.cwd()}/styles`));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); // To parse the incoming requests with JSON payloads
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
+app.use(express.json({ limit: "100mb" })); // To parse the incoming requests with JSON payloads
 
 app.use(Express.getMethodPathIp);
 
-router.get("/", function (req, res) {
+app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
 // Hello
-router.get("/hello", Hello.hello);
+app.get("/hello", Hello.hello);
 
 // Express Tutorial
-router.get(
+app.get(
   "/express",
   (req, res, next) => {
     req.expressPath = `${__dirname}/views/express.html`;
@@ -51,17 +48,17 @@ router.get(
   },
   Express.getExpressHTML
 );
-router.get("/express/now", Express.getTime, Express.showTime);
+app.get("/express/now", Express.getTime, Express.showTime);
 
-router.get("/express/json", Express.expressJson);
-router.get("/express/:word/echo", Express.echoWord);
+app.get("/express/json", Express.expressJson);
+app.get("/express/:word/echo", Express.echoWord);
 
-router.get("/express/name", Express.getName);
+app.get("/express/name", Express.getName);
 
-router.post("/express/name", Express.postName);
+app.post("/express/name", Express.postName);
 
 // Timestamp Microservice
-router.get(
+app.get(
   "/timestamp",
   (req, res, next) => {
     req.timestampPath = `${__dirname}/views/timestamp.html`;
@@ -70,12 +67,12 @@ router.get(
   Timestamp.getTimestampHTML
 );
 
-router.get("/timestamp/api", Timestamp.getNowTime);
+app.get("/timestamp/api", Timestamp.getNowTime);
 
-router.get("/timestamp/api/:date", Timestamp.getDateObject);
+app.get("/timestamp/api/:date", Timestamp.getDateObject);
 
 // Header Parser Microservice
-router.get(
+app.get(
   "/header-parser",
   (req, res, next) => {
     req.headerParserPath = `${__dirname}/views/headerparser.html`;
@@ -84,10 +81,10 @@ router.get(
   HeaderParser.getHeaderParserHTML
 );
 
-router.get("/header-parser/api/whoami", HeaderParser.getWhoAmI);
+app.get("/header-parser/api/whoami", HeaderParser.getWhoAmI);
 
 // URL Shortener Microservice
-router.get(
+app.get(
   "/url-shortener",
   (req, res, next) => {
     req.urlShortenerPath = `${__dirname}/views/urlshortener.html`;
@@ -96,9 +93,17 @@ router.get(
   UrlShortener.getUrlShortenerHTML
 );
 
-router.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
+app.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
 
-router.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
+app.post(
+  "/url-shortener/api/shorturl",
+  (req, res) => {
+    const body = req.body;
+    console.log(body);
+    res.json(body);
+  }
+  // UrlShortener.setShortUrl
+);
 
 // listen for requests
 const listener = app.listen(PORT, function () {
