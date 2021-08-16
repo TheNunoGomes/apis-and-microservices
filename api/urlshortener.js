@@ -20,16 +20,15 @@ function getUrlShortenerHTML(req, res) {
 }
 
 function setShortUrl(req, res) {
-  const url = req.body.url.replace(/https?:\/\//, "");
-  dns.lookup(url, (err, address, family) => {
+  dns.lookup(req.body.url.replace(/https?:\/\//, ""), (err) => {
     if (err) {
       return res.json({ error: "invalid url" });
     }
-    URL.findOne({ original_url: url }, (error, data) => {
+    URL.findOne({ original_url: req.body.url }, (error, data) => {
       if (error) return console.log(error);
       if (!data) {
         const short_url = shortid.generate();
-        const original_url = url;
+        const original_url = req.body.url;
         const newUrl = new URL({
           short_url,
           original_url,
