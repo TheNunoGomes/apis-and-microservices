@@ -1,6 +1,5 @@
 // Packages
 const express = require("express");
-const dns = require("dns");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
