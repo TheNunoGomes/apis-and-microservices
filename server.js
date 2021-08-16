@@ -15,10 +15,10 @@ const UrlShortener = require("./api/urlshortener");
 // Set server port
 const PORT = process.env.PORT | 3000;
 
-mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.DB_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 const app = express();
 
@@ -87,19 +87,19 @@ router.get(
 
 router.get("/header-parser/api/whoami", HeaderParser.getWhoAmI);
 
-// URL Shortener Microservice
-router.get(
-  "/url-shortener",
-  (req, res, next) => {
-    req.urlShortenerPath = `${__dirname}/views/urlshortener.html`;
-    next();
-  },
-  UrlShortener.getUrlShortenerHTML
-);
+// // URL Shortener Microservice
+// router.get(
+//   "/url-shortener",
+//   (req, res, next) => {
+//     req.urlShortenerPath = `${__dirname}/views/urlshortener.html`;
+//     next();
+//   },
+//   UrlShortener.getUrlShortenerHTML
+// );
 
-router.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
+// router.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
 
-router.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
+// router.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
 
 // listen for requests
 var listener = app.listen(PORT, function () {
