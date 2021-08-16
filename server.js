@@ -12,7 +12,7 @@ const HeaderParser = require("./api/headerparser");
 const UrlShortener = require("./api/urlshortener");
 
 // Set server port
-const PORT = process.env.PORT | 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
