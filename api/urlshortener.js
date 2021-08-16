@@ -1,5 +1,6 @@
 const shortid = require("shortid");
 const mongoose = require("mongoose");
+const dns = require("dns");
 
 /* 
   The approach:
@@ -19,15 +20,16 @@ function getUrlShortenerHTML(req, res) {
 }
 
 function setShortUrl(req, res) {
-  const urlRegex = /^https?:\/\/www\.\w{2,}\.com\/?$/;
-  if (!urlRegex.test(req.body.url)) {
-    res.json({ error: "invalid url" });
-  } else {
-    URL.findOne({ original_url: req.body.url }, (error, data) => {
+  const url = req.body.url.replace(/https?:\/\//, "");
+  dns.lookup(url, (err, address, family) => {
+    if (err) {
+      return res.json({ error: "invalid url" });
+    }
+    URL.findOne({ original_url: url }, (error, data) => {
       if (error) return console.log(error);
       if (!data) {
         const short_url = shortid.generate();
-        const original_url = req.body.url;
+        const original_url = url;
         const newUrl = new URL({
           short_url,
           original_url,
@@ -47,7 +49,7 @@ function setShortUrl(req, res) {
         });
       }
     });
-  }
+  });
 }
 
 function navigateToUrl(req, res) {
