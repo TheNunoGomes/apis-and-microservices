@@ -16,6 +16,9 @@
   "scripts": {
     "start": "nodemon src/main.js localhost 3000"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "cors": "^2.8.0",
     "dns": "^0.2.2",
