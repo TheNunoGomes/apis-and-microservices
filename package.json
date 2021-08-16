@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://githost.com/camper/repo.git"
+    "url": ""
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
