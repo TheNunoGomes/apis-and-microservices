@@ -34,14 +34,14 @@ function setShortUrl(req, res) {
         });
         newUrl.save((error, data) => {
           if (error) return console.log(error);
-          res.json({
+          return res.json({
             original_url,
             short_url,
           });
         });
       } else {
         let { short_url, original_url } = data;
-        res.json({
+        return res.json({
           original_url,
           short_url,
         });
@@ -55,9 +55,11 @@ function navigateToUrl(req, res) {
     if (error) return console.log(error);
     console.log(data);
     if (!data) {
-      res.json({ error: "No short URL found for the given input" });
+      return res.json({ error: "No short URL found for the given input" });
     } else {
-      res.redirect(data.original_url);
+      let redirectUrl = data.original_url;
+
+      return res.redirect(redirectUrl);
     }
   });
 }
