@@ -14,7 +14,6 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "serve": "nodemon server.js localhost 3000",
     "start": "node server.js"
   },
   "engines": {
@@ -27,7 +26,6 @@
     "express": "^4.14.4",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.7",
-    "nodemon": "^2.0.12",
     "shortid": "^2.2.16"
   },
   "repository": {
