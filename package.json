@@ -14,7 +14,8 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon src/main.js localhost 3000"
+    "serve": "nodemon server.js localhost 3000",
+    "start": "node server.js"
   },
   "engines": {
     "node": "14.x"
