@@ -1,4 +1,3 @@
-const shortid = require("shortid");
 const mongoose = require("mongoose");
 const dns = require("dns");
 
@@ -27,7 +26,7 @@ function setShortUrl(req, res) {
     URL.findOne({ original_url: req.body.url }, (error, data) => {
       if (error) return console.log(error);
       if (!data) {
-        const short_url = shortid.generate();
+        const short_url = Math.floor(Math.random() * 90000) + 10000;
         const original_url = req.body.url;
         const newUrl = new URL({
           short_url,
