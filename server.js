@@ -95,15 +95,7 @@ app.get(
 
 app.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
 
-app.post(
-  "/url-shortener/api/shorturl",
-  (req, res) => {
-    const body = req.body;
-    console.log(body);
-    res.json(body);
-  }
-  // UrlShortener.setShortUrl
-);
+app.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
 
 // listen for requests
 const listener = app.listen(PORT, function () {

@@ -19,6 +19,7 @@ function getUrlShortenerHTML(req, res) {
 }
 
 function setShortUrl(req, res) {
+  console.log(req.body);
   URL.findOne({ original_url: req.body.url }, (error, data) => {
     if (error) return console.log(error);
     if (!data) {
@@ -28,7 +29,6 @@ function setShortUrl(req, res) {
         short_url,
         original_url,
       });
-
       newUrl.save((error, data) => {
         if (error) return console.log(error);
         res.json({
