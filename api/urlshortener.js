@@ -19,31 +19,35 @@ function getUrlShortenerHTML(req, res) {
 }
 
 function setShortUrl(req, res) {
-  console.log(req.body);
-  URL.findOne({ original_url: req.body.url }, (error, data) => {
-    if (error) return console.log(error);
-    if (!data) {
-      const short_url = shortid.generate();
-      const original_url = req.body.url;
-      const newUrl = new URL({
-        short_url,
-        original_url,
-      });
-      newUrl.save((error, data) => {
-        if (error) return console.log(error);
+  const urlRegex = /^https?:\/\/www\.\w{2,}\.com\/?$/;
+  if (!urlRegex.test(req.body.url)) {
+    res.json({ error: "invalid url" });
+  } else {
+    URL.findOne({ original_url: req.body.url }, (error, data) => {
+      if (error) return console.log(error);
+      if (!data) {
+        const short_url = shortid.generate();
+        const original_url = req.body.url;
+        const newUrl = new URL({
+          short_url,
+          original_url,
+        });
+        newUrl.save((error, data) => {
+          if (error) return console.log(error);
+          res.json({
+            original_url,
+            short_url,
+          });
+        });
+      } else {
+        let { short_url, original_url } = data;
         res.json({
           original_url,
           short_url,
         });
-      });
-    } else {
-      let { short_url, original_url } = data;
-      res.json({
-        original_url,
-        short_url,
-      });
-    }
-  });
+      }
+    });
+  }
 }
 
 function navigateToUrl(req, res) {
