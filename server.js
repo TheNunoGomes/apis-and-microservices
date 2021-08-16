@@ -102,6 +102,6 @@ router.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
 router.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
 
 // listen for requests
-var listener = app.listen(PORT, function () {
+const listener = app.listen(PORT, function () {
   console.log("The app is listening on port " + listener.address().port);
 });
