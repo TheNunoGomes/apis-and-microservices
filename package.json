@@ -14,7 +14,7 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon api.js localhost 3000"
+    "start": "nodemon src/main.js localhost 3000"
   },
   "dependencies": {
     "cors": "^2.8.0",
