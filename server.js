@@ -101,13 +101,15 @@ app.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
 // Exercise Tracker
 app.get("/exercise-tracker", ExerciseTracker.getExerciseTrackerHTML);
 
-app.get("/exercise-tracker/api/users", ExerciseTracker.getAllUsers);
+app.get("/exercise-tracker/api/users", async (req, res) => {
+  ExerciseTracker.getAllUsers().then((data) => res.json(data));
+});
 
 app.post("/exercise-tracker/api/users", ExerciseTracker.createUser);
 
 app.post(
   "/exercise-tracker/api/users/:_id/exercises",
-  (req, res, next) => {
+  async (req, res, next) => {
     ExerciseTracker.getUserById(req.params._id).then((data) => {
       req.body.user = data;
       next();
