@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const multer = require("multer");
 require("dotenv").config();
 
 // Libraries
@@ -11,9 +12,12 @@ const Timestamp = require("./api/timestamp");
 const HeaderParser = require("./api/headerparser");
 const UrlShortener = require("./api/urlshortener");
 const ExerciseTracker = require("./api/exercisetracker");
+const filemetadata = require("./api/filemetadata");
 
 // Set server port
 const PORT = process.env.PORT || 3000;
+
+const upload = multer({ dest: "uploads/" });
 
 mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
@@ -161,6 +165,19 @@ app.get("/exercise-tracker/api/users/:_id/logs", async (req, res) => {
   response.count = response.log.length;
   res.json(response);
 });
+
+// File Metadata
+
+app.get("/file-metadata", filemetadata.getFileMetadataHTML);
+
+app.post(
+  "/file-metadata/api/fileanalyse",
+  upload.single("upfile"),
+  (req, res) => {
+    const { originalname: name, mimetype: type, size } = req.file;
+    res.json({ name, type, size });
+  }
+);
 
 // listen for requests
 const listener = app.listen(PORT, function () {
