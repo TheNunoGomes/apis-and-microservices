@@ -120,27 +120,45 @@ app.post(
 
 app.get("/exercise-tracker/api/users/:_id/logs", async (req, res) => {
   const { _id } = req.params;
-  const response = { _id };
-  const promises = [];
-  promises.push(
-    ExerciseTracker.getUserById(_id).then(
-      (data) => (response.username = data.username)
-    )
-  );
-  promises.push(
-    ExerciseTracker.getExercisesByUser(_id).then((data) => {
-      response.count = data.length;
+  let { from, to, limit } = req.query;
 
-      response.log = data.map((exercise) => {
-        return {
-          date: exercise.date,
-          description: exercise.description,
-          duration: exercise.duration,
-        };
-      });
-    })
+  let response = { _id };
+  let promises = [];
+
+  promises.push(
+    ExerciseTracker.getUserById(_id)
+      .then((data) => (response.username = data.username))
+      .catch((error) => res.json({ error }))
+  );
+
+  promises.push(
+    ExerciseTracker.getExercisesByUser(_id)
+      .then((data) => {
+        response.log = data
+          .filter((exercise) => {
+            exerciseDate = new Date(exercise.date);
+            if (from && exerciseDate < new Date(from)) {
+              return false;
+            }
+            if (to && exerciseDate > new Date(to)) {
+              return false;
+            }
+            return true;
+          })
+          .map((exercise) => {
+            return {
+              date: exercise.date,
+              description: exercise.description,
+              duration: exercise.duration,
+            };
+          });
+      })
+      .catch((error) => res.json({ error }))
   );
   await Promise.all(promises);
+
+  response.log.splice(Number(limit) || Number.MAX_SAFE_INTEGER);
+  response.count = response.log.length;
   res.json(response);
 });
 
