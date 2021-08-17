@@ -26,7 +26,8 @@
     "express": "^4.14.4",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.7",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "shortid": "^2.2.16"
   },
   "repository": {
     "type": "git",

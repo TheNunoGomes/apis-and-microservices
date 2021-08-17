@@ -101,6 +101,8 @@ app.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
 // Exercise Tracker
 app.get("/exercise-tracker", ExerciseTracker.getExerciseTrackerHTML);
 
+app.post("/exercise-tracker/api/users", ExerciseTracker.createUser);
+
 // listen for requests
 const listener = app.listen(PORT, function () {
   console.log("The app is listening on port " + listener.address().port);
