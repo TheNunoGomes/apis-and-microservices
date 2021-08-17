@@ -126,11 +126,11 @@ function createExercise(req, res) {
     month[4] = "May";
     month[5] = "Jun";
     month[6] = "Jul";
-    month[1] = "Ago";
-    month[2] = "Set";
-    month[3] = "Oct";
-    month[4] = "Nov";
-    month[5] = "Dec";
+    month[7] = "Ago";
+    month[8] = "Set";
+    month[9] = "Oct";
+    month[10] = "Nov";
+    month[11] = "Dec";
 
     let date = new Date(data.date);
     date = `${weekday[date.getDay()]} ${
