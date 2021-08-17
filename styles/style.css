@@ -1,17 +1,20 @@
 /****** Main Styling ******/
+* {
+  box-sizing: border-box;
+}
 
 body {
-	font-family: 'Roboto', sans-serif;
-	font-size: 16px;
-	background-color: #222;
-	color: #ddd;
-	text-align: center;
-	line-height: 1.4em;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  background-color: #222;
+  color: #ddd;
+  text-align: center;
+  line-height: 1.4em;
 }
 
 .container {
-	padding: 0;
-	margin-top: 40px;
+  padding: 0;
+  margin-top: 40px;
 }
 
 code {
@@ -22,7 +25,7 @@ code {
 }
 
 h1 {
-	font-size: 4em;
+  font-size: 4em;
 }
 
 h3 {
@@ -30,15 +33,15 @@ h3 {
 }
 
 hr {
-	margin: 25px;
+  margin: 25px;
 }
 
 .footer {
-	margin-top: 40px;
+  margin-top: 40px;
 }
 
 ul {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 li {
@@ -46,30 +49,30 @@ li {
 }
 
 a {
-	color: #2574A9;
-}
-  
-input {
-	padding: 5px;
+  color: #2574a9;
 }
 
-input[type='text'] {
-	width: 220px;
-	text-align: center;
+input {
+  padding: 5px;
 }
-  
+
+input[type="text"] {
+  width: 220px;
+  text-align: center;
+}
+
 main {
-	padding: 0;
-	margin-top: 40px;
+  padding: 0;
+  margin-top: 40px;
 }
-  
+
 form {
-	margin: 10px auto;
-	padding: 20px;
-	max-width: 600px;
+  margin: 10px auto;
+  padding: 20px;
+  max-width: 600px;
 }
-  
+
 label {
-	margin-bottom: 8px;
-	margin-right: 10px;
+  margin-bottom: 8px;
+  margin-right: 10px;
 }

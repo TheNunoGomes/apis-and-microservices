@@ -10,6 +10,7 @@ const Express = require("./api/express");
 const Timestamp = require("./api/timestamp");
 const HeaderParser = require("./api/headerparser");
 const UrlShortener = require("./api/urlshortener");
+const ExerciseTracker = require("./api/exercisetracker");
 
 // Set server port
 const PORT = process.env.PORT || 3000;
@@ -96,6 +97,9 @@ app.get(
 app.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
 
 app.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
+
+// Exercise Tracker
+app.get("/exercise-tracker", ExerciseTracker.getExerciseTrackerHTML);
 
 // listen for requests
 const listener = app.listen(PORT, function () {
