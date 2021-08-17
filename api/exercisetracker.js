@@ -88,12 +88,12 @@ async function getUserById(_id) {
 }
 
 function createExercise(req, res) {
-  const {
+  let {
     user: { username, _id },
     description,
     duration,
   } = req.body;
-
+  duration = Number(duration);
   const exercise = {
     username,
     userId: _id,
