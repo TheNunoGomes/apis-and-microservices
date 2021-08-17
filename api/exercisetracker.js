@@ -120,10 +120,26 @@ function createExercise(req, res) {
   });
 }
 
+async function getExercisesByUser(userId) {
+  return new Promise((resolve, reject) => {
+    Exercise.find({ userId }, (error, data) => {
+      if (error) return reject(error);
+      if (!data) {
+        return reject(
+          "There are no exercises that correspond to the applied filters."
+        );
+      } else {
+        return resolve(data);
+      }
+    });
+  });
+}
+
 module.exports = {
   getExerciseTrackerHTML,
   createUser,
   createExercise,
   getUserById,
   getAllUsers,
+  getExercisesByUser,
 };

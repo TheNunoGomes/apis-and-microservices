@@ -118,6 +118,32 @@ app.post(
   ExerciseTracker.createExercise
 );
 
+app.get("/exercise-tracker/api/users/:_id/logs", async (req, res) => {
+  const { _id } = req.params;
+  const response = { _id };
+  const promises = [];
+  promises.push(
+    ExerciseTracker.getUserById(_id).then(
+      (data) => (response.username = data.username)
+    )
+  );
+  promises.push(
+    ExerciseTracker.getExercisesByUser(_id).then((data) => {
+      response.count = data.length;
+
+      response.log = data.map((exercise) => {
+        return {
+          date: exercise.date,
+          description: exercise.description,
+          duration: exercise.duration,
+        };
+      });
+    })
+  );
+  await Promise.all(promises);
+  res.json(response);
+});
+
 // listen for requests
 const listener = app.listen(PORT, function () {
   console.log("The app is listening on port " + listener.address().port);
