@@ -105,6 +105,17 @@ app.get("/exercise-tracker/api/users", ExerciseTracker.getAllUsers);
 
 app.post("/exercise-tracker/api/users", ExerciseTracker.createUser);
 
+app.post(
+  "/exercise-tracker/api/users/:_id/exercises",
+  (req, res, next) => {
+    ExerciseTracker.getUserById(req.params._id).then((data) => {
+      req.body.user = data;
+      next();
+    });
+  },
+  ExerciseTracker.createExercise
+);
+
 // listen for requests
 const listener = app.listen(PORT, function () {
   console.log("The app is listening on port " + listener.address().port);

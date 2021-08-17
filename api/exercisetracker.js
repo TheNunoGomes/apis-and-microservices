@@ -6,8 +6,16 @@ const user = new Schema({
   username: { type: String, required: true },
   _id: { type: String, required: true },
 });
+const exercise = new Schema({
+  username: { type: String, required: true },
+  userId: { type: String, required: true },
+  date: { type: String, default: new Date().toString() },
+  duration: { type: Number, required: true },
+  description: { type: String, required: true },
+});
 
 const User = mongoose.model("User", user);
+const Exercise = mongoose.model("Exercise", exercise);
 
 function getExerciseTrackerHTML(req, res) {
   res.sendFile(process.cwd() + "/views/exercisetracker.html");
@@ -59,8 +67,61 @@ function getAllUsers(req, res) {
     }
   });
 }
+
+async function getUserById(_id) {
+  return new Promise((resolve, reject) =>
+    User.findOne({ _id }, (error, data) => {
+      if (error) return reject(error);
+      if (!data) {
+        return reject("The user ID introduced does not exist.");
+      } else {
+        const { username } = data;
+        return resolve({
+          _id,
+          username,
+        });
+      }
+    })
+  );
+}
+
+function createExercise(req, res) {
+  const {
+    user: { username, _id },
+    description,
+    duration,
+  } = req.body;
+
+  const exercise = {
+    username,
+    userId: _id,
+    description,
+    duration,
+  };
+
+  if (req.body.date) {
+    const exerciseDate = new Date(req.body.date).toString();
+    if (exerciseDate != NaN) exercise.date = exerciseDate;
+  }
+
+  const newExercise = new Exercise(exercise);
+
+  newExercise.save((error, data) => {
+    if (error) return console.log(error);
+    return res.json({
+      username,
+      _id: exercise.userId,
+      description,
+      duration,
+      date: data.date,
+    });
+  });
+}
+
 module.exports = {
   getExerciseTrackerHTML,
   createUser,
+  createExercise,
+  getUserById,
   getAllUsers,
 };
