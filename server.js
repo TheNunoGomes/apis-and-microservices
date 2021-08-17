@@ -101,6 +101,8 @@ app.post("/url-shortener/api/shorturl", UrlShortener.setShortUrl);
 // Exercise Tracker
 app.get("/exercise-tracker", ExerciseTracker.getExerciseTrackerHTML);
 
+app.get("/exercise-tracker/api/users", ExerciseTracker.getAllUsers);
+
 app.post("/exercise-tracker/api/users", ExerciseTracker.createUser);
 
 // listen for requests

@@ -42,7 +42,25 @@ function createUser(req, res) {
   return;
 }
 
+function getAllUsers(req, res) {
+  User.find({}, (error, data) => {
+    if (error) return console.log(error);
+    if (!data) {
+      return console.log("There are no users in the database.");
+    } else {
+      return res.json(
+        data.map((user) => {
+          return {
+            _id: user._id,
+            username: user.username,
+          };
+        })
+      );
+    }
+  });
+}
 module.exports = {
   getExerciseTrackerHTML,
   createUser,
+  getAllUsers,
 };
