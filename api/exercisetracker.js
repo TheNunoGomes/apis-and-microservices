@@ -111,13 +111,13 @@ function createExercise(req, res) {
   newExercise.save((error, data) => {
     if (error) return console.log(error);
     let weekday = new Array(7);
-    weekday[0] = "Mon";
-    weekday[1] = "Tue";
-    weekday[2] = "Wed";
-    weekday[3] = "Thu";
-    weekday[4] = "Fri";
-    weekday[5] = "Sat";
-    weekday[6] = "Sun";
+    weekday[0] = "Sun";
+    weekday[1] = "Mon";
+    weekday[2] = "Tue";
+    weekday[3] = "Wed";
+    weekday[4] = "Thu";
+    weekday[5] = "Fri";
+    weekday[6] = "Sat";
     let month = new Array(12);
     month[0] = "Jan";
     month[1] = "Feb";
