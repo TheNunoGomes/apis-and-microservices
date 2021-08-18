@@ -133,9 +133,9 @@ function createExercise(req, res) {
     month[11] = "Dec";
 
     let date = new Date(data.date);
-    date = `${weekday[date.getDay()]} ${
-      month[date.getMonth()]
-    } ${date.getDate()} ${date.getFullYear()}`;
+    date = `${weekday[date.getDay()]} ${month[date.getMonth()]} ${
+      date.getDate() < 10 ? "0" : ""
+    }${date.getDate()} ${date.getFullYear()}`;
 
     return res.json({
       username,
