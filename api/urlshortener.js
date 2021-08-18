@@ -18,30 +18,41 @@ function getUrlShortenerHTML(req, res) {
   res.sendFile(process.cwd() + "/views/urlshortener.html");
 }
 
-function setShortUrl(req, res) {
-  dns.lookup(req.body.url.replace(/https?:\/\//, ""), (err) => {
+function checkUrl(original_url) {
+  httpsRegex = /^https?:\/\//;
+  if (!httpsRegex.test(original_url)) {
+    return false;
+  }
+  dns.lookup(original_url.replace(httpsRegex, ""), (err) => {
     if (err) {
-      return res.json({ error: "invalid url" });
+      return false;
     }
-    URL.findOne({ original_url: req.body.url }, (error, data) => {
-      if (error) return console.log(error);
+  });
+
+  return true;
+}
+
+async function setShortUrl(original_url) {
+  return new Promise((resolve, reject) => {
+    URL.findOne({ original_url }, (error, data) => {
+      if (error) return reject(error);
       if (!data) {
         const short_url = Math.floor(Math.random() * 90000) + 10000;
-        const original_url = req.body.url;
         const newUrl = new URL({
           short_url,
           original_url,
         });
+
         newUrl.save((error, data) => {
-          if (error) return console.log(error);
-          return res.json({
+          if (error) return reject(error);
+          return resolve({
             original_url,
             short_url,
           });
         });
       } else {
         let { short_url, original_url } = data;
-        return res.json({
+        return resolve({
           original_url,
           short_url,
         });
@@ -66,6 +77,7 @@ function navigateToUrl(req, res) {
 
 module.exports = {
   getUrlShortenerHTML,
+  checkUrl,
   setShortUrl,
   navigateToUrl,
 };
