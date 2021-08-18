@@ -126,7 +126,7 @@ function createExercise(req, res) {
     month[4] = "May";
     month[5] = "Jun";
     month[6] = "Jul";
-    month[7] = "Ago";
+    month[7] = "Aug";
     month[8] = "Set";
     month[9] = "Oct";
     month[10] = "Nov";
