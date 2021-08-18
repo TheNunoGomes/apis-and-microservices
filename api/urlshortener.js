@@ -64,7 +64,6 @@ async function setShortUrl(original_url) {
 function navigateToUrl(req, res) {
   URL.findOne({ short_url: req.params.url }, (error, data) => {
     if (error) return console.log(error);
-    console.log(data);
     if (!data) {
       return res.json({ error: "No short URL found for the given input" });
     } else {
