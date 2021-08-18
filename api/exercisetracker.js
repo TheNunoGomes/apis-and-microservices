@@ -110,39 +110,12 @@ function createExercise(req, res) {
 
   newExercise.save((error, data) => {
     if (error) return console.log(error);
-    let weekday = new Array(7);
-    weekday[0] = "Sun";
-    weekday[1] = "Mon";
-    weekday[2] = "Tue";
-    weekday[3] = "Wed";
-    weekday[4] = "Thu";
-    weekday[5] = "Fri";
-    weekday[6] = "Sat";
-    let month = new Array(12);
-    month[0] = "Jan";
-    month[1] = "Feb";
-    month[2] = "Mar";
-    month[3] = "Apr";
-    month[4] = "May";
-    month[5] = "Jun";
-    month[6] = "Jul";
-    month[7] = "Aug";
-    month[8] = "Set";
-    month[9] = "Oct";
-    month[10] = "Nov";
-    month[11] = "Dec";
-
-    let date = new Date(data.date);
-    date = `${weekday[date.getDay()]} ${month[date.getMonth()]} ${
-      date.getDate() < 10 ? "0" : ""
-    }${date.getDate()} ${date.getFullYear()}`;
-
     return res.json({
       username,
       _id: exercise.userId,
       description,
       duration,
-      date,
+      date: new Date(data.date).toDateString(),
     });
   });
 }
