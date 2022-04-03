@@ -10,7 +10,7 @@ const Hello = require("./api/hello");
 const Express = require("./api/express");
 const Timestamp = require("./api/timestamp");
 const HeaderParser = require("./api/headerparser");
-const UrlShortener = require("./api/urlshortener");
+// const UrlShortener = require("./api/urlshortener");
 const ExerciseTracker = require("./api/exercisetracker");
 const filemetadata = require("./api/filemetadata");
 
@@ -88,15 +88,15 @@ app.get(
 
 app.get("/header-parser/api/whoami", HeaderParser.getWhoAmI);
 
-// URL Shortener Microservice
-app.get(
-  "/url-shortener",
-  (req, res, next) => {
-    req.urlShortenerPath = `${__dirname}/views/urlshortener.html`;
-    next();
-  },
-  UrlShortener.getUrlShortenerHTML
-);
+// // URL Shortener Microservice
+// app.get(
+//   "/url-shortener",
+//   (req, res, next) => {
+//     req.urlShortenerPath = `${__dirname}/views/urlshortener.html`;
+//     next();
+//   },
+//   UrlShortener.getUrlShortenerHTML
+// );
 
 // app.post(
 //   "/url-shortener/api/shorturl",
@@ -112,7 +112,7 @@ app.get(
 //   }
 // );
 
-app.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
+// app.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
 
 // Exercise Tracker
 app.get("/exercise-tracker", ExerciseTracker.getExerciseTrackerHTML);
