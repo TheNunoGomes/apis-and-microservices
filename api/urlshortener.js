@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const dns = require("dns");
+// const dns = require("dns");
 
 /* 
   The approach:
@@ -18,19 +18,19 @@ function getUrlShortenerHTML(req, res) {
   res.sendFile(process.cwd() + "/views/urlshortener.html");
 }
 
-function checkUrl(original_url) {
-  httpsRegex = /^https?:\/\//;
-  if (!httpsRegex.test(original_url)) {
-    return false;
-  }
-  dns.lookup(original_url.replace(httpsRegex, ""), (err) => {
-    if (err) {
-      return false;
-    }
-  });
+// function checkUrl(original_url) {
+//   httpsRegex = /^https?:\/\//;
+//   if (!httpsRegex.test(original_url)) {
+//     return false;
+//   }
+//   dns.lookup(original_url.replace(httpsRegex, ""), (err) => {
+//     if (err) {
+//       return false;
+//     }
+//   });
 
-  return true;
-}
+//   return true;
+// }
 
 async function setShortUrl(original_url) {
   return new Promise((resolve, reject) => {
