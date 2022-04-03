@@ -76,7 +76,7 @@ function navigateToUrl(req, res) {
 
 module.exports = {
   getUrlShortenerHTML,
-  checkUrl,
+  // checkUrl,
   setShortUrl,
   navigateToUrl,
 };

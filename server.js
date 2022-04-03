@@ -98,19 +98,19 @@ app.get(
   UrlShortener.getUrlShortenerHTML
 );
 
-app.post(
-  "/url-shortener/api/shorturl",
-  (req, res, next) => {
-    UrlShortener.checkUrl(req.body.url)
-      ? next()
-      : res.json({ error: "invalid url" });
-  },
-  (req, res) => {
-    UrlShortener.setShortUrl(req.body.url)
-      .then((data) => res.json(data))
-      .catch((error) => console.log(error));
-  }
-);
+// app.post(
+//   "/url-shortener/api/shorturl",
+//   (req, res, next) => {
+//     UrlShortener.checkUrl(req.body.url)
+//       ? next()
+//       : res.json({ error: "invalid url" });
+//   },
+//   (req, res) => {
+//     UrlShortener.setShortUrl(req.body.url)
+//       .then((data) => res.json(data))
+//       .catch((error) => console.log(error));
+//   }
+// );
 
 app.get("/url-shortener/api/shorturl/:url", UrlShortener.navigateToUrl);
 
